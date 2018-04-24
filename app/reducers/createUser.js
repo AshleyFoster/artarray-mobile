@@ -3,7 +3,7 @@ export default (state = {}, action) => {
     case 'LOAD_SPINNER':
       return { ...state };
     case 'SIGNUP_FAILED':
-      return { ...state, ...action.payload };
+      return { ...state };
     case 'SIGNUP_SUCCESS':
       return { ...state, ...action.payload };
     default:

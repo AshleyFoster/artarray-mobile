@@ -17,7 +17,7 @@ const Root = ({ currentUser }) => {
   }
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       {Component}
     </View>
   )

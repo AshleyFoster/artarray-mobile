@@ -34,9 +34,9 @@ class ChooseAuth extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff',
     marginVertical: 50,
     padding: 20,
-    backgroundColor: '#fff',
   },
   pageTitle: {
     fontSize: 20,
