@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -80,7 +78,7 @@ class Feed extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  posts: state.posts.data,
+  posts: Object.values(state.posts.data),
 });
 
 export default connect(mapStateToProps)(Feed);

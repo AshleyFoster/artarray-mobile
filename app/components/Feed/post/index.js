@@ -13,22 +13,24 @@ class Posts extends React.Component {
 
     return (
       <ScrollView>
-      {error && <Text>Error loading your array</Text>}
-      {posts.map((post, id) =>
+        {error && <Text>Error loading your array</Text>}
+        {posts.map((post, id) =>
           <Card
-        key={id}
-        authorEmail={post.user.email}
-        authorName={post.user.fullname}
-        title={post.title}
-        description={post.description}
-        image={post.image_url}
-        time={post.created_at}
+            key={id}
+            postId={post.id}
+            authorEmail={post.user.email}
+            authorName={post.user.fullname}
+            title={post.title}
+            description={post.description}
+            image={post.image_url}
+            time={post.created_at}
+            likesCount={post.likes_count}
+            liked={post.liked_by_user}
           />
-      )}
+        )}
       </ScrollView>
     );
   }
 }
 
 export default Posts;
-

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  CameraRoll,
   Image,
   ScrollView,
   StyleSheet,
@@ -49,21 +48,21 @@ class Form extends React.Component {
     const { imageData } = this.state;
 
     if (imageData !== null) {
-        return (
-          <Image
+      return (
+        <Image
           source={{ uri: imageData.uri }}
           style={{ alignSelf: 'center', width: 200, height: 200 }}
-          />
-        );
+        />
+      );
     } else {
       return (
         <View>
-        <TouchableHighlight
-        style={styles.addPhoto}
-        onPress={this.getPhotoFromGallery}
-        >
-        <Text style={styles.addPhotoText}>Add Photo</Text>
-        </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.addPhoto}
+            onPress={this.getPhotoFromGallery}
+          >
+            <Text style={styles.addPhotoText}>Add Photo</Text>
+          </TouchableHighlight>
         </View>
       );
     }

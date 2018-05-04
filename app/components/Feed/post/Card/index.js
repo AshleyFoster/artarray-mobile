@@ -20,12 +20,15 @@ class Card extends React.Component {
 
   render() {
     const {
+      postId,
       authorEmail,
       authorName,
       title,
       description,
       image,
-      time
+      time,
+      likesCount,
+      liked
     } = this.props;
     const { loading } = this.state;
 
@@ -45,7 +48,14 @@ class Card extends React.Component {
           />
         </View>
 
-        <Description title={title} description={description} time={time} />
+        <Description
+          postId={postId}
+          title={title}
+          description={description}
+          time={time}
+          likesCount={likesCount}
+          liked={liked}
+        />
       </View>
     );
   }

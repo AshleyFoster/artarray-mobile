@@ -5,36 +5,30 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import moment from 'moment';
 
 import ActionIconBar from './actionIcons';
 
 class Description extends React.Component {
   render() {
-    const { title, description, time } = this.props;
+    const { postId, title, description, time, likesCount, liked } = this.props;
+    const formatedDate = moment(time).startOf('hour').fromNow();
 
     return (
       <View style={styles.container}>
-        <ActionIconBar time={time} />
+        <ActionIconBar postId={postId} likesCount={likesCount} liked={liked} />
 
-        <TouchableOpacity
-          style={styles.text}
-        >
-          <Text style={[styles.text, styles.bold]}>10 likes</Text>
-        </TouchableOpacity>
+        <Text style={[styles.text, styles.bold]}>{title}</Text>
 
-        <Text style={styles.text}>
-          {title}
-        </Text>
-
-        <Text style={styles.text}>
-          {description}
-        </Text>
+        <Text style={styles.text}>{description}</Text>
 
         <TouchableOpacity
           style={styles.text}
         >
           <Text style={[styles.text, styles.light]}>View all 10 comments</Text>
         </TouchableOpacity>
+
+        <Text style={[styles.text, styles.light]}>{formatedDate}</Text>
       </View>
     );
   }
@@ -56,6 +50,7 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: '600',
+    fontSize: 15,
   },
   light: {
     color: '#aaa',

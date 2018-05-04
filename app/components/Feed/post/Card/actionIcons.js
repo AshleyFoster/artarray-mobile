@@ -5,23 +5,53 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import moment from 'moment';
+import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+
+import { likePost, unlikePost } from '../../../../actions/posts';
 
 class actionIconBar extends React.Component {
-   render () {
-     const { time } = this.props;
-     const formatedDate = moment(time).startOf('hour').fromNow();
+  handleLike = (postId) => {
+    const { liked } = this.props;
 
-     return (
+    if (this.props.liked) {
+      this.props.unlikePost(postId)
+    } else {
+      this.props.likePost(postId)
+    }
+  }
+
+  formatLikesCount() {
+    const { likesCount } = this.props;
+
+    if (likesCount > 1) {
+      return (`${likesCount} likes`);
+    } else if (likesCount == 1) {
+      return (`${likesCount} like`);
+    } else {
+      return ('Be the first to like this!');
+    }
+  }
+
+  render () {
+    const { postId, liked } = this.props;
+
+    return (
       <View style={styles.container}>
         <Text style={styles.leftText}>
-          {formatedDate}
+          {this.formatLikesCount()}
         </Text>
 
         <TouchableOpacity
-          style={[styles.rightText, styles.rightPadding]}
+          style={styles.rightText}
+          onPress={() => this.handleLike(postId)}
         >
-          <Text>Like</Text>
+          <Icon
+            name={this.props.liked ? 'heart' : 'heart-o'}
+            style='regular'
+            type='font-awesome'
+            color='#000099'
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -30,8 +60,8 @@ class actionIconBar extends React.Component {
           <Text>Comment</Text>
         </TouchableOpacity>
       </View>
-     );
-   }
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -43,17 +73,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   leftText: {
-    color: '#aaa',
     flex: 1,
     justifyContent: 'center',
   },
   rightText: {
     justifyContent: 'center',
-  },
-  rightPadding: {
-    paddingRight: 10,
+    marginRight: 10,
   },
 });
 
-export default actionIconBar;
+mapDispatchToProps = {
+  likePost,
+  unlikePost,
+}
 
+export default connect(null, mapDispatchToProps)(actionIconBar);
