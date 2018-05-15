@@ -1,4 +1,4 @@
-import URL from './rootUrl';
+import { API_URL } from '../rootUrl';
 
 export const fetchPosts = () => {
   return (dispatch, getState) => {
@@ -8,7 +8,7 @@ export const fetchPosts = () => {
       type: 'LOAD_SPINNER'
     });
 
-    return fetch(URL, {
+    return fetch(API_URL, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -48,7 +48,7 @@ export const createPost = (title, description, imageData) => {
       type: 'LOAD_SPINNER'
     });
 
-    return fetch(URL + 'posts', {
+    return fetch(`${API_URL}posts`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -61,6 +61,7 @@ export const createPost = (title, description, imageData) => {
           title,
           description,
           image: imageData.data,
+          file_name: imageData.fileName,
         }
       })
     }).then((response) => {
@@ -93,7 +94,7 @@ export const likePost = (postId) => {
       type: 'LOAD_SPINNER'
     });
 
-    return fetch(`${URL}posts/${postId}/like`, {
+    return fetch(`${API_URL}posts/${postId}/like`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -130,7 +131,7 @@ export const unlikePost = (postId) => {
       type: 'LOAD_SPINNER'
     });
 
-    return fetch(`${URL}posts/${postId}/like`, {
+    return fetch(`${API_URL}posts/${postId}/like`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',

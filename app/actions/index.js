@@ -1,4 +1,4 @@
-import URL from './rootUrl';
+import { API_URL } from '../rootUrl';
 
 export const loginUser = (email, password) => {
   return (dispatch) => {
@@ -6,7 +6,7 @@ export const loginUser = (email, password) => {
       type: 'LOAD_SPINNER'
     });
 
-    return fetch(URL + 'sign_in', {
+    return fetch(API_URL + 'sign_in', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -42,7 +42,7 @@ export const loginUser = (email, password) => {
 
 export const logoutUser = () => {
   return (dispatch) => {
-    fetch(URL + 'sign_out', {
+    fetch(API_URL + 'sign_out', {
       method: 'DELETE'
     }).then((response) => {
       dispatch({
@@ -66,7 +66,7 @@ export const signupUser = (email, password) => {
       type: 'LOAD_SPINNER'
     });
 
-    return fetch(URL + 'signup', {
+    return fetch(API_URL + 'signup', {
       method: 'POST',
       credentials: 'include',
       headers: {

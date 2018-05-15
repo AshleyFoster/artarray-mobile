@@ -8,6 +8,7 @@ import {
 
 import AuthorRow from './AuthorRow';
 import Description from './Description';
+import URL from '../../../../rootUrl';
 
 class Card extends React.Component {
   state = {
@@ -43,7 +44,7 @@ class Card extends React.Component {
 
           <Image
             style={StyleSheet.absoluteFill}
-            source={{uri: 'http://192.168.1.67:3000/' + image + '.jpeg'}}
+            source={{uri: `${URL}${image}`}}
             onLoad={this.handleLoad}
           />
         </View>
