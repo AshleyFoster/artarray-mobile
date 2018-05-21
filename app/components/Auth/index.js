@@ -55,7 +55,7 @@ class Auth extends React.Component {
 
     if (authPage) {
       return (
-        <View>
+        <View style={{flex: 1}}>
           {loginError && <Text>Email or Password wrong</Text>}
           {registerError && <Text>Unable to create User</Text>}
           <Form
@@ -68,11 +68,13 @@ class Auth extends React.Component {
       );
     } else {
       return (
-        <ChooseAuth
-          authPage={this.authPage}
-          isLoginPage={this.setAuthPageToLogin}
-          isRegisterPage={this.setAuthPageToRegister}
-        />
+        <View style={{flex: 1}}>
+          <ChooseAuth
+            authPage={this.authPage}
+            isLoginPage={this.setAuthPageToLogin}
+            isRegisterPage={this.setAuthPageToRegister}
+          />
+        </View>
       );
     }
   }

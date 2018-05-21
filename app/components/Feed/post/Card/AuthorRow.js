@@ -13,7 +13,7 @@ class AuthorRow extends React.Component {
     author: '',
   }
 
-  componentDidMount() {
+  parseAuthorName() {
     const { email, name } = this.props;
 
     if (name !== null) {
@@ -30,7 +30,7 @@ class AuthorRow extends React.Component {
       <View style={styles.container}>
         <Avatar />
         <Text style={styles.text}>
-          {author}
+          {this.parseAuthorName()}
         </Text>
 
         <TouchableOpacity

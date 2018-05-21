@@ -1,9 +1,13 @@
-export default (state = { errors: false }, action) => {
+const defaultState = {}
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case 'LOAD_SPINNER':
       return { ...state };
     case 'LOGIN_SUCCESS':
-      return { ...state, ...action.payload, errors: false };
+      return {
+        ...action.payload,
+      };
     case 'LOGOUT':
       return { ...state };
     default:

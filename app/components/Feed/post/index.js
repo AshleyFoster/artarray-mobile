@@ -14,7 +14,7 @@ class Posts extends React.Component {
     return (
       <ScrollView>
         {error && <Text>Error loading your array</Text>}
-        {posts.map((post, id) =>
+        { posts && posts.map((post, id) =>
           <Card
             key={id}
             postId={post.id}

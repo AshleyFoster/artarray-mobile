@@ -54,7 +54,7 @@ export const logoutUser = () => {
 
 export const setCurrentUser = (data) => {
   return (dispatch) => {
-    return request('/users').then((data) => {
+    return request(API_URL + '/users').then((data) => {
       dispatch({ type: LOAD_USER, payload: data.user });
     });
   }

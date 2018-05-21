@@ -1,79 +1,62 @@
 import React from 'react';
-import { View } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import NavigationBar from './Navigation';
 import FooterNavigation from './Navigation/Footer';
 import Form from './post/Form';
 import Posts from './post';
+import { logoutUser } from '../../actions';
 import { fetchPosts, createPost } from '../../actions/posts';
 
 const ADD_POST_PAGE = 'Add Post'
 
 class Feed extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'ArtArray',
+    headerLeft: (
+      <TouchableOpacity
+        style={{marginLeft: 20}}
+        onPress={() => console.log('Pressed')}
+      >
+        <Text>Add</Text>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        style={{marginRight: 20}}
+        onPress={() => this.props.logoutUser()}
+      >
+        <Text>Logout</Text>
+      </TouchableOpacity>
+    )
+  })
+
   state = {
-    actionPage: undefined,
     errors: false,
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchPosts()).catch(() => {
-      this.setState({ errors: true })
-    });
-  }
-
-  get isAddPostPage() {
-    this.state.actionPage === ADD_POST_PAGE
-  }
-
-  setActionPageToAddPost = () => {
-    this.setState({ actionPage: ADD_POST_PAGE })
-  }
-
-  setActionPageToFetchPosts = () => {
-    this.setState({ actionPage: undefined })
+    this.props.dispatch(fetchPosts());
   }
 
   onSubmit = ({ title, description, imageData }) => {
-    this.props.dispatch(createPost(title, description, imageData)).catch(() => {
-      console.log('Error Creating Post')
-    });
+    // this.props.dispatch(createPost(title, description, imageData)).catch(() => {
+    //   console.log('Error Creating Post')
+    // });
   }
 
   render() {
-    const { actionPage, error } = this.state;
+    const { error } = this.state;
     const { posts } = this.props;
 
-    if (actionPage === undefined) {
-      return (
-        <View style={{flex: 1}}>
-          <NavigationBar
-            createPost={this.setActionPageToAddPost}
-          />
-
-          <Posts
-            posts={posts}
-            error={error}
-          />
-
-          <FooterNavigation />
-        </View>
-      );
-    } else {
-      return (
-        <View style={{flex: 1}}>
-          <Form
-            actionPage={this.state.actionPage}
-            onSubmit={this.onSubmit}
-          />
-
-          <FooterNavigation
-            fetchPosts={this.setActionPageToFetchPosts}
-          />
-        </View>
-      );
-    }
+    return (
+      <Text>yo</Text>
+    )
   }
 }
 

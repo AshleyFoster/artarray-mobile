@@ -8,7 +8,7 @@ export const fetchPosts = () => {
       type: 'LOAD_SPINNER'
     });
 
-    return fetch(API_URL, {
+    return fetch(`${API_URL}/posts`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -16,27 +16,14 @@ export const fetchPosts = () => {
         'X-User-Token': currentUser.authentication_token,
         'Content-Type': 'application/json',
       },
-    }).then((response) => {
-      if (response.ok) {
-        response.json().then((data) => {
+    })
+      .then(response => response.json())
+      .then(json => {
           dispatch({
             type: 'FETCH_SUCCESS',
-            payload: data
+            payload: json
           });
-
-          return {data};
-        });
-      } else {
-        dispatch({
-          type: 'FETCH_FAILED'
-        })
-
-        return Promise.reject('error')
-      };
-    }).catch(e => {
-      console.warn(e)
-      return Promise.reject(e)
-    })
+      })
   };
 };
 

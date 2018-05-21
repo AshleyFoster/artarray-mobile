@@ -1,30 +1,39 @@
 import React from 'react';
-import { View } from 'react-native'
-import { bindActionCreators } from 'redux';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
+import { createStackNavigator } from 'react-navigation'
 
-import Login from './Auth/index';
-import Feed from './Feed/index';
+import Auth from './Auth'
+import Feed from './Feed'
 
-import userActions from '../actions';
+const AuthStack = createStackNavigator({
+  Auth: {
+    screen: Auth
+  },
+});
 
-const Root = ({ currentUser }) => {
-  let Component;
-  if (currentUser && currentUser.authentication_token) {
-    Component = <Feed />;
-  } else {
-    Component = <Login />
+const FeedStack = createStackNavigator({
+  Home: {
+    screen: Feed
+  },
+});
+
+
+class Root extends React.Component {
+  render () {
+    const { currentUser } = this.props
+
+    if (currentUser && currentUser.authentication_token) {
+      return <FeedStack/>
+    } else {
+      return <AuthStack/>
+    }
   }
-
-  return (
-    <View style={{flex: 1}}>
-      {Component}
-    </View>
-  )
-};
+}
 
 const mapStateToProps = ({ currentUser }) => {
   return { currentUser };
 };
 
 export default connect(mapStateToProps)(Root);
+
