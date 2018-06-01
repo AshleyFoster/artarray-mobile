@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation'
 
 import Auth from './Auth'
 import Feed from './Feed'
+import CreatePost from './Feed/post/Form/index'
 
 const AuthStack = createStackNavigator({
   Auth: {
@@ -13,9 +14,8 @@ const AuthStack = createStackNavigator({
 });
 
 const FeedStack = createStackNavigator({
-  Home: {
-    screen: Feed
-  },
+  Home: { screen: Feed },
+  CreatePost: { screen: CreatePost },
 });
 
 
@@ -24,7 +24,7 @@ class Root extends React.Component {
     const { currentUser } = this.props
 
     if (currentUser && currentUser.authentication_token) {
-      return <FeedStack/>
+      return <FeedStack />
     } else {
       return <AuthStack/>
     }

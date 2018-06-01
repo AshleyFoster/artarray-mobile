@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import Button from 'react-native-button';
 import ImagePicker from 'react-native-image-picker';
+import { connect } from 'react-redux';
+
+import { createPost } from '../../../../actions/posts';
 
 class Form extends React.Component {
   state = {
@@ -39,9 +42,9 @@ class Form extends React.Component {
 
   onSubmit = () => {
     const { title, description, imageData } = this.state
-    const { onSubmit } = this.props
+    const { currentUser } = this.props
 
-    onSubmit({ title, description, imageData })
+    this.props.createPost(title, description, imageData, currentUser)
   }
 
   showPickedImage() {
@@ -69,12 +72,12 @@ class Form extends React.Component {
   }
 
   render() {
-    const { actionPage, title, description, image, onSubmit } = this.props;
+    const { title, description, image, onSubmit } = this.props;
 
     return (
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.pageText}>{actionPage}</Text>
+          <Text style={styles.pageText}>Add Post</Text>
 
           {this.showPickedImage()}
 
@@ -99,7 +102,7 @@ class Form extends React.Component {
           <Button style={styles.submit}
             onPress={this.onSubmit}
           >
-            {this.props.actionPage}
+            Create Post
           </Button>
         </View>
       </ScrollView>
@@ -151,4 +154,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Form;
+const mapStateToProps = ({ currentUser }) => {
+  return { currentUser };
+};
+
+const mapDispatchToProps = {
+  createPost,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

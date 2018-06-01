@@ -5,7 +5,6 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import FooterNavigation from './Navigation/Footer';
 import Form from './post/Form';
@@ -13,7 +12,6 @@ import Posts from './post';
 import { logoutUser } from '../../actions';
 import { fetchPosts, createPost } from '../../actions/posts';
 
-const ADD_POST_PAGE = 'Add Post'
 
 class Feed extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -21,7 +19,7 @@ class Feed extends React.Component {
     headerLeft: (
       <TouchableOpacity
         style={{marginLeft: 20}}
-        onPress={() => console.log('Pressed')}
+        onPress={() => navigation.navigate('CreatePost')}
       >
         <Text>Add</Text>
       </TouchableOpacity>
@@ -29,7 +27,7 @@ class Feed extends React.Component {
     headerRight: (
       <TouchableOpacity
         style={{marginRight: 20}}
-        onPress={() => this.props.logoutUser()}
+        onPress={() => console.log('Logout')}
       >
         <Text>Logout</Text>
       </TouchableOpacity>
@@ -42,12 +40,6 @@ class Feed extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(fetchPosts());
-  }
-
-  onSubmit = ({ title, description, imageData }) => {
-    // this.props.dispatch(createPost(title, description, imageData)).catch(() => {
-    //   console.log('Error Creating Post')
-    // });
   }
 
   render() {
