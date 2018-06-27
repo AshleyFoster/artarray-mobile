@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation'
 
 import Auth from './Auth'
+import Logout from './Auth/Logout'
 import Feed from './Feed'
 import CreatePost from './Feed/post/Form/index'
 
@@ -16,6 +17,7 @@ const AuthStack = createStackNavigator({
 const FeedStack = createStackNavigator({
   Home: { screen: Feed },
   CreatePost: { screen: CreatePost },
+  Logout: { screen: Logout },
 });
 
 

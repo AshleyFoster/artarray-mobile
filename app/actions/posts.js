@@ -26,19 +26,18 @@ export const createPost = (title, description, imageData, currentUser) => {
     const image = imageData.data
     const file_name = imageData.fileName
 
-    API.post('posts', {post: {title, description, image, file_name}}, currentUser).then(post => {
-      dispatch({
-        type: 'POST_CREATE_SUCCESS',
-        payload: data
-      });
-    })
+    API.post('posts', currentUser, {post: {title, description, image, file_name}})
+      .then(post => {
+        dispatch({
+          type: 'POST_CREATE_SUCCESS',
+          payload: data
+        });
+      })
   }
 };
 
-export const likePost = (postId) => {
-  return (dispatch, getState) => {
-    const currentUser = getState().currentUser
-
+export const likePost = (postId, currentUser) => {
+  return (dispatch) => {
     dispatch({
       type: 'LOAD_SPINNER'
     });
@@ -52,15 +51,14 @@ export const likePost = (postId) => {
   }
 };
 
-export const unlikePost = (postId) => {
-  return (dispatch, getState) => {
-    const currentUser = getState().currentUser
+export const unlikePost = (postId, currentUser) => {
+  return (dispatch) => {
 
     dispatch({
       type: 'LOAD_SPINNER'
     });
 
-    API.delete(`posts/${postId}/like`, currentUser).then(posts => {
+    API.destroy(`posts/${postId}/like`, currentUser).then(posts => {
       dispatch({
         type: 'POST_UNLIKE_SUCCESS',
         payload: postId

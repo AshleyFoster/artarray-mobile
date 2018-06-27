@@ -4,6 +4,7 @@ import {
   Text,
   View
 } from 'react-native';
+import _ from 'lodash'
 
 import Card from './Card';
 
@@ -14,7 +15,7 @@ class Posts extends React.Component {
     return (
       <ScrollView>
         {error && <Text>Error loading your array</Text>}
-        { posts && posts.map((post, id) =>
+        { posts && posts.reverse().map((post, id) =>
           <Card
             key={id}
             postId={post.id}
