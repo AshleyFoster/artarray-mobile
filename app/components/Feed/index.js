@@ -7,39 +7,41 @@ import {
 import { connect } from 'react-redux';
 
 import FooterNavigation from './Navigation/Footer';
-import Form from './post/Form';
 import Posts from './post';
 import { logoutUser } from '../../actions';
 import { fetchPosts, createPost } from '../../actions/posts';
 
 
-class Feed extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: 'ArtArray',
-    headerLeft: (
-      <TouchableOpacity
+class Feed extends React.PureComponent {
+  static navigationOptions = ({ navigation }) => {
+
+    return {
+      headerTitle: 'ArtArray',
+      headerLeft: (
+        <TouchableOpacity
         style={{marginLeft: 20}}
         onPress={() => navigation.navigate('CreatePost')}
-      >
+        >
         <Text>Add</Text>
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <TouchableOpacity
+        </TouchableOpacity>
+      ),
+      headerRight: (
+        <TouchableOpacity
         style={{marginRight: 20}}
-        onPress={() => console.log('Logout')}
-      >
+        onPress={() => navigation.navigate('Logout')}
+        >
         <Text>Logout</Text>
-      </TouchableOpacity>
-    )
-  })
-
-  state = {
-    errors: false,
-  }
+        </TouchableOpacity>
+      ),
+    };
+  };
 
   componentDidMount() {
     this.props.dispatch(fetchPosts());
+  }
+
+  state = {
+    errors: false,
   }
 
   render() {
@@ -47,8 +49,13 @@ class Feed extends React.Component {
     const { posts } = this.props;
 
     return (
-      <Text>yo</Text>
-    )
+      <View style={{flex: 1}}>
+        <Posts
+          posts={posts}
+          error={error}
+        />
+      </View>
+    );
   }
 }
 

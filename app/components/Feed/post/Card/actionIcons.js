@@ -12,12 +12,12 @@ import { likePost, unlikePost } from '../../../../actions/posts';
 
 class actionIconBar extends React.Component {
   handleLike = (postId) => {
-    const { liked } = this.props;
+    const { liked, currentUser } = this.props;
 
     if (this.props.liked) {
-      this.props.unlikePost(postId)
+      this.props.unlikePost(postId, currentUser);
     } else {
-      this.props.likePost(postId)
+      this.props.likePost(postId, currentUser);
     }
   }
 
@@ -34,7 +34,7 @@ class actionIconBar extends React.Component {
   }
 
   render () {
-    const { postId, liked } = this.props;
+    const { currentUser, postId, liked } = this.props;
 
     return (
       <View style={styles.container}>
@@ -44,7 +44,7 @@ class actionIconBar extends React.Component {
 
         <TouchableOpacity
           style={styles.rightText}
-          onPress={() => this.handleLike(postId)}
+          onPress={() => this.handleLike(postId, currentUser)}
         >
           <Icon
             name={this.props.liked ? 'heart' : 'heart-o'}
@@ -82,9 +82,13 @@ const styles = StyleSheet.create({
   },
 });
 
-mapDispatchToProps = {
+const mapStateToProps = ({ currentUser }) => {
+  return { currentUser };
+};
+
+const mapDispatchToProps = {
   likePost,
   unlikePost,
 }
 
-export default connect(null, mapDispatchToProps)(actionIconBar);
+export default connect(mapStateToProps, mapDispatchToProps)(actionIconBar);

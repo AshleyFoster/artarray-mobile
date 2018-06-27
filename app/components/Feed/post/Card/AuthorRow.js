@@ -9,22 +9,17 @@ import {
 import Avatar from './Avatar';
 
 class AuthorRow extends React.Component {
-  state = {
-    author: '',
-  }
-
   parseAuthorName() {
     const { email, name } = this.props;
 
     if (name !== null) {
-      this.setState({ author: name })
+      return ( name );
     } else {
-      this.setState({ author: email })
+      return ( email );
     }
   }
 
   render() {
-    const { author } = this.state;
 
     return (
       <View style={styles.container}>

@@ -1,6 +1,6 @@
 import { API_URL } from './rootUrl';
 
-const post = (url, data, currentUser) => {
+const post = (url, currentUser, data) => {
   return apiRequest("POST", url, currentUser, data)
 }
 
@@ -40,5 +40,8 @@ const apiRequest = (method, url, currentUser, data) => {
       } else {
         return Promise.reject(response.json())
       }
+    }).catch((error) => {
+      console.log('Api call error');
+      console.log(error.message);
     });
 }

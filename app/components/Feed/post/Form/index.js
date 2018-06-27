@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Button from 'react-native-button';
 import ImagePicker from 'react-native-image-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from 'react-redux';
 
 import { createPost } from '../../../../actions/posts';
@@ -41,10 +42,12 @@ class Form extends React.Component {
   updateDescription = description => this.setState({ description })
 
   onSubmit = () => {
-    const { title, description, imageData } = this.state
-    const { currentUser } = this.props
+    const { title, description, imageData } = this.state;
+    const { currentUser } = this.props;
+    const navigation = this.props.navigation;
 
     this.props.createPost(title, description, imageData, currentUser)
+    navigation.navigate('Home')
   }
 
   showPickedImage() {
@@ -75,7 +78,7 @@ class Form extends React.Component {
     const { title, description, image, onSubmit } = this.props;
 
     return (
-      <ScrollView>
+      <KeyboardAwareScrollView behavior="padding">
         <View style={styles.container}>
           <Text style={styles.pageText}>Add Post</Text>
 
@@ -105,7 +108,7 @@ class Form extends React.Component {
             Create Post
           </Button>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     );
   }
 }
